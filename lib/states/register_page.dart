@@ -2,33 +2,47 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Loginpage extends StatefulWidget {
-  final VoidCallback ShowRegisterPage;
-  const Loginpage({super.key, required this.ShowRegisterPage});
+class RegisterPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const RegisterPage({super.key, required this.showLoginPage});
 
   @override
-  State<Loginpage> createState() => _LoginpageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginpageState extends State<Loginpage> {
+class _RegisterPageState extends State<RegisterPage> {
   //controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmpasswordController = TextEditingController();
 
-  Future Signin() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-  }
-
-  @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmpasswordController.dispose();
   }
 
+  Future SignUp() async {
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    }
+  }
+
+  bool passwordConfirmed() {
+    if (_passwordController.text.trim() ==
+        _confirmpasswordController.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -39,7 +53,7 @@ class _LoginpageState extends State<Loginpage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Korat Services',
+                  'Register',
                   style: GoogleFonts.bebasNeue(fontSize: 40),
                 ),
 
@@ -88,12 +102,30 @@ class _LoginpageState extends State<Loginpage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
+                //Confirmpassword
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    obscureText: true,
+                    controller: _confirmpasswordController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'Confirm Password',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: Signin,
+                    onTap: SignUp,
                     child: Container(
                       // width: 150,
                       padding: EdgeInsets.all(25),
@@ -103,7 +135,7 @@ class _LoginpageState extends State<Loginpage> {
                       ),
                       child: const Center(
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -119,13 +151,13 @@ class _LoginpageState extends State<Loginpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Not a member?',
+                      'I am a member ?',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     GestureDetector(
-                      onTap: widget.ShowRegisterPage,
+                      onTap: widget.showLoginPage,
                       child: const Text(
-                        ' Register now',
+                        ' Login now',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),
                       ),
