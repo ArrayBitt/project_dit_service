@@ -53,17 +53,30 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Register',
-                  style: GoogleFonts.bebasNeue(fontSize: 40),
+                  'Wellcome',
+                  style: GoogleFonts.bebasNeue(fontSize: 45),
                 ),
 
                 const SizedBox(
                   height: 10,
                 ),
-                // Text(
-                //   'LOGIN AND REGISTER',
-                //   style: AppConstant().appStyle(size: 15),
-                // ),
+               Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'สร้างบัญชีผู้ใช้ หรือ ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    GestureDetector(
+                      onTap: widget.showLoginPage,
+                      child: const Text(
+                        ' เข้าสู่ระบบ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.orange),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -130,12 +143,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       // width: 150,
                       padding: EdgeInsets.all(25),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple,
+                        color: Colors.orange,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: const Center(
                         child: Text(
-                          'Sign Up',
+                          'สร้างบัญชี',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -147,23 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'I am a member ?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      onTap: widget.showLoginPage,
-                      child: const Text(
-                        ' Login now',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.blue),
-                      ),
-                    )
-                  ],
-                ),
+                
               ],
             ),
           ),

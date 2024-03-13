@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_dit_service/states/forgot_password_page.dart';
 
 class Loginpage extends StatefulWidget {
   final VoidCallback ShowRegisterPage;
@@ -46,10 +47,23 @@ class _LoginpageState extends State<Loginpage> {
                 const SizedBox(
                   height: 10,
                 ),
-                // Text(
-                //   'LOGIN AND REGISTER',
-                //   style: AppConstant().appStyle(size: 15),
-                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'เข้าสู่บัญชีของคุณ ? ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    GestureDetector(
+                      onTap: widget.ShowRegisterPage,
+                      child: const Text(
+                        ' สร้างบัญชีใหม่',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.orange),
+                      ),
+                    )
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -98,12 +112,12 @@ class _LoginpageState extends State<Loginpage> {
                       // width: 150,
                       padding: EdgeInsets.all(25),
                       decoration: BoxDecoration(
-                        color: Colors.deepPurple,
+                        color: Colors.orange,
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: const Center(
                         child: Text(
-                          'Sign In',
+                          'เข้าสู่ระบบ',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -115,22 +129,31 @@ class _LoginpageState extends State<Loginpage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Not a member?',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      onTap: widget.ShowRegisterPage,
-                      child: const Text(
-                        ' Register now',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.blue),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) {
+                                return ForgotPasswordPage();
+                              }),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'ลืมรหัสผ่าน ?',
+                          style: TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,fontSize: 15),
+                        ),
                       ),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
